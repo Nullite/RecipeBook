@@ -11,6 +11,9 @@ namespace RecipeBook.Model
     {
         public string Name { get; set; }
         public string Photo { get; set; }
+        public string Description { get; set; }
+        public int CookTime { get; set; }
+        public List<Ingridient> Ingridients { get; set; } 
         public FoodGroup Group { get; set; }
     }
 }

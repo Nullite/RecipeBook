@@ -29,5 +29,34 @@ namespace RecipeBook
             _vm = new RecipesVM();
             DataContext= _vm;
         }
+        private void DeleteRecipe(object sender, RoutedEventArgs e)
+        {
+            _vm.SelectedRecipes = RecipesLV.SelectedItems.Cast<Recipe>().ToList();
+            _vm.Delete();
+        }
+        private void OpenRecipe(object sender, MouseButtonEventArgs e)
+        {
+            object source = e.OriginalSource;
+            if ((source is TextBlock))
+            {
+                Recipe Rec = _vm.FindRecipe((source as TextBlock).Text);
+                RecipeWindow recipe = new RecipeWindow(Rec);
+                recipe.ShowDialog();
+            }
+            else return;            
+        }
+        private void FindOrders(object sender, RoutedEventArgs e) => _vm.Find();
+
+        private void ChangeRecipe(object sender, RoutedEventArgs e)
+        {
+
+            _vm.SelectedRecipes = RecipesLV.SelectedItems.Cast<Recipe>().ToList();
+            Recipe Rec = _vm.SelectedRecipes.FirstOrDefault();
+            if (Rec != null)
+            {
+                ChangeRecipeWindow change = new ChangeRecipeWindow(Rec);
+                change.ShowDialog();
+            }
+        }
     }
 }

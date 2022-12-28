@@ -26,7 +26,8 @@
                     <Button
                         Width="80"
                         DockPanel.Dock="Right"
-                        Content="Найти"/>
+                        Content="Найти"
+                        Click="FindOrders"/>
                     <TextBox
                         x:Name="SearchOrdersTextBox"
                         Text="{Binding Path=SearchText}"/>
@@ -41,6 +42,7 @@
             </Grid>
         </Grid>
         <ListView
+            MouseDoubleClick="OpenRecipe"
             Grid.Row="1"
             ItemsSource="{Binding Path=Recipes}"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -60,9 +62,11 @@
                         <Viewbox.ContextMenu>
                             <ContextMenu>
                                 <MenuItem
-                                    Header="Изменить"/>
+                                    Header="Изменить"
+                                    Click="ChangeRecipe"/>
                                 <MenuItem
-                                    Header="Удалить"/>
+                                    Header="Удалить"
+                                    Click="DeleteRecipe"/>
                             </ContextMenu>
                         </Viewbox.ContextMenu>
                         <Border

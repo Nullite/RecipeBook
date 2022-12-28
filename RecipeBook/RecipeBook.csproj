@@ -55,8 +55,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ChangeRecipeWindow.xaml.cs">
+      <DependentUpon>ChangeRecipeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Ingridient.cs" />
+    <Compile Include="RecipeWindow.xaml.cs">
+      <DependentUpon>RecipeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\NotifyClass.cs" />
+    <Compile Include="ViewModel\RecipeChangeVM.cs" />
     <Compile Include="ViewModel\RecipesVM.cs" />
+    <Compile Include="ViewModel\RecipeViewVM.cs" />
+    <Page Include="ChangeRecipeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -69,6 +82,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RecipeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Recipe.cs" />
