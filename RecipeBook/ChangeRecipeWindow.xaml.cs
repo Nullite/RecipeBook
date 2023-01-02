@@ -2,6 +2,7 @@
 using RecipeBook.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,10 +30,16 @@ namespace RecipeBook
             DataContext = _vm;
         }
 
-        private void UpdateName(object sender, DataTransferEventArgs e)
+        private void UpdateRecipe(object sender, RoutedEventArgs e)
         {
-            _vm.Rec.Name = (sender as TextBox).Text;
+            _vm.ChangeRecipe();
+            Close();
+        }
+        private void ChangeFoodGroup(object sender, SelectionChangedEventArgs e) => _vm.ChooseFoodGroup(sender as ComboBox);
 
+        private void ChangeIngridients(object sender, RoutedEventArgs e)
+        {
+            _vm.ChangeIngridients();
         }
     }
 }

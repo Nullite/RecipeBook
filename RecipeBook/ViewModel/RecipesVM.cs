@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RecipeBook.ViewModel
@@ -16,10 +17,10 @@ namespace RecipeBook.ViewModel
         public RecipesVM()
         {
             context = RecipesDB.RecipesContext();
-            Recipes = context.Recipes.ToList();
+            Recipes = new ObservableCollection<Recipe>(context.Recipes);
         }
         public string SearchText { get; set; }
-        public List<Recipe> Recipes { get; set; }
+        public ObservableCollection<Recipe> Recipes { get; set; }
         public List<Recipe> SelectedRecipes { get; set; }
         public void Delete()
         {
@@ -27,20 +28,35 @@ namespace RecipeBook.ViewModel
             {
                 context.Recipes.Remove(o);
             }
-            Recipes = context.Recipes.ToList();
+            Recipes = context.Recipes;
             SelectedRecipes.Clear();
             OnPropertyChanged("Recipes");
         }
         public void Find()
         {
-            Recipes = context.Recipes.Where(r => SearchText == null 
-            || r.Name.ToLower().Contains(SearchText.ToLower())
-            || r.Group.ToString().ToLower().Contains(SearchText.ToLower())).ToList();
+            Recipes.Clear();
+            foreach (var r in context.Recipes)
+            {
+                if (SearchText == null 
+                    || r.Name.ToLower().Contains(SearchText.ToLower()) 
+                    || r.Group.ToString().ToLower().Contains(SearchText.ToLower()))
+                Recipes.Add(r);
+            }
             OnPropertyChanged("Recipes");
         }
-        public Recipe FindRecipe(string Name)
+        public Recipe FindRecipe(string Name) => Recipes.FirstOrDefault(x => x.Name == Name);
+
+        public void Change(ListView RecipesLV)
         {
-            return Recipes.FirstOrDefault(x => x.Name == Name);
+            SelectedRecipes = RecipesLV.SelectedItems.Cast<Recipe>().ToList();
+            Recipe Rec = SelectedRecipes.FirstOrDefault();
+            if (Rec != null)
+            {
+                ChangeRecipeWindow change = new ChangeRecipeWindow(Rec);
+                change.ShowDialog();
+            }
+            Recipes = new ObservableCollection<Recipe>(context.Recipes);
+            OnPropertyChanged("Recipes");
         }
     }
 }

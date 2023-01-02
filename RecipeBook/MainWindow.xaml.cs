@@ -49,14 +49,7 @@ namespace RecipeBook
 
         private void ChangeRecipe(object sender, RoutedEventArgs e)
         {
-
-            _vm.SelectedRecipes = RecipesLV.SelectedItems.Cast<Recipe>().ToList();
-            Recipe Rec = _vm.SelectedRecipes.FirstOrDefault();
-            if (Rec != null)
-            {
-                ChangeRecipeWindow change = new ChangeRecipeWindow(Rec);
-                change.ShowDialog();
-            }
+            _vm.Change(RecipesLV);           
         }
     }
 }

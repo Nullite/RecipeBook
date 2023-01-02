@@ -58,15 +58,23 @@
     <Compile Include="ChangeRecipeWindow.xaml.cs">
       <DependentUpon>ChangeRecipeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IngridientsCRUDWindow.xaml.cs">
+      <DependentUpon>IngridientsCRUDWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Ingridient.cs" />
     <Compile Include="RecipeWindow.xaml.cs">
       <DependentUpon>RecipeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\NotifyClass.cs" />
+    <Compile Include="ViewModel\IngidientsCRUD_VM.cs" />
     <Compile Include="ViewModel\RecipeChangeVM.cs" />
     <Compile Include="ViewModel\RecipesVM.cs" />
     <Compile Include="ViewModel\RecipeViewVM.cs" />
     <Page Include="ChangeRecipeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="IngridientsCRUDWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

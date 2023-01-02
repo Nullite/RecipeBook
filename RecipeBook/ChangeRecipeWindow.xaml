@@ -3,15 +3,77 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RecipeBook"
+        xmlns:local="clr-namespace:RecipeBook" xmlns:viewmodel="clr-namespace:RecipeBook.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:RecipeChangeVM}"
         mc:Ignorable="d"
-        Title="ChangeRecipeWindow" Height="450" Width="800">
+        Title="ChangeRecipeWindow" Height="450" Width="800"
+        Background="Beige">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <StackPanel>
             <TextBlock
                 Text="Название блюда:"/>
             <TextBox
-                TextWrapping="WrapWithOverflow"/>
+                TextWrapping="WrapWithOverflow"
+                Text="{Binding Path=СhangeRec.Name, Mode=TwoWay}"/>
+            <TextBlock
+                Text="Описание:"/>
+            <TextBox
+                TextWrapping="WrapWithOverflow"
+                Text="{Binding Path=СhangeRec.Description, Mode=TwoWay}"/>
+            <TextBlock
+                Text="Время приготовления:"/>
+            <TextBox
+                TextWrapping="WrapWithOverflow"
+                Text="{Binding Path=СhangeRec.CookTime, Mode=TwoWay}"/>
+            <TextBlock
+                Text="Группа блюда:"/>
+            <ComboBox
+                ItemsSource="{Binding Path=GroupToChoose}"
+                SelectedIndex="{Binding Path=SelectedIndex}"
+                x:Name ="FoodGroupCB"
+                SelectionChanged="ChangeFoodGroup">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock
+                            Text="{Binding Path=NameGroup}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button
+                Width="150"
+                Height="30"
+                Content="Изменить ингридиенты"
+                Margin="0 20 0 0"
+                Click="ChangeIngridients"/>
+
         </StackPanel>
+        <Button
+            VerticalAlignment="Bottom"
+                Width="100"
+                Height="30"
+                Content="Изменить"
+                Click="UpdateRecipe"/>
+        <Border
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Grid.Column="1"
+                Width="380"
+                Height="250"
+                CornerRadius="25"
+                BorderBrush="Black"
+                BorderThickness="1">
+            <Border.Background>
+                <ImageBrush
+                  ImageSource="{Binding Path=Rec.Photo}"
+                  Stretch="UniformToFill"/>
+            </Border.Background>
+        </Border>
+        <TextBlock
+            Grid.Column="1"
+            VerticalAlignment="Bottom"
+            Text="{Binding Path=Ingridients}"/>
     </Grid>
 </Window>
