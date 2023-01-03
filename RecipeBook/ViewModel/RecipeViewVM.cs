@@ -16,7 +16,7 @@ namespace RecipeBook.ViewModel
             get
             {
                 string ingridients = "";
-                Rec.Ingridients.ForEach(i =>
+                Rec.Ingridients?.ForEach(i =>
                 {
                     ingridients += $"{i.Name} {i.Quantity} {i.Units}\n";
                 });

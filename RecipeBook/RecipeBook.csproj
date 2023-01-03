@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddRecipeWindow.xaml.cs">
+      <DependentUpon>AddRecipeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ChangeRecipeWindow.xaml.cs">
       <DependentUpon>ChangeRecipeWindow.xaml</DependentUpon>
     </Compile>
@@ -66,10 +69,15 @@
       <DependentUpon>RecipeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\NotifyClass.cs" />
+    <Compile Include="ViewModel\AddRecipeVM.cs" />
     <Compile Include="ViewModel\IngidientsCRUD_VM.cs" />
     <Compile Include="ViewModel\RecipeChangeVM.cs" />
     <Compile Include="ViewModel\RecipesVM.cs" />
     <Compile Include="ViewModel\RecipeViewVM.cs" />
+    <Page Include="AddRecipeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ChangeRecipeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -123,7 +131,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resourses\Images\default.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resourses\Images\cesar_s_kuricey.jpg" />
   </ItemGroup>

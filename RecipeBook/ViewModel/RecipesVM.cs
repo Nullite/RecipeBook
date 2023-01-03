@@ -58,5 +58,12 @@ namespace RecipeBook.ViewModel
             Recipes = new ObservableCollection<Recipe>(context.Recipes);
             OnPropertyChanged("Recipes");
         }
+        public void Add()
+        {
+            AddRecipeWindow add = new AddRecipeWindow();
+            add.ShowDialog();
+            Recipes = new ObservableCollection<Recipe>(context.Recipes);
+            OnPropertyChanged("Recipes");
+        }
     }
 }

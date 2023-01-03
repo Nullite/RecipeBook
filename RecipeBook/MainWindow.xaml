@@ -37,7 +37,8 @@
                     HorizontalAlignment="Left"
                     Columns="2">
                     <Button
-                        Content="Добавить"/>
+                        Content="Добавить"
+                        Click="AddRecipe"/>
                 </UniformGrid>
             </Grid>
         </Grid>

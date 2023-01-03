@@ -13,7 +13,7 @@
         <DataGrid
             CurrentCellChanged="UpdateIngridientsString"
             AutoGenerateColumns="False"
-            ItemsSource="{Binding Path=Ingridients, Mode=TwoWay}">
+            ItemsSource="{Binding Path=Ingridients}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="270"

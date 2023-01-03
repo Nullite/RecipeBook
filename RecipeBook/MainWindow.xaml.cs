@@ -51,5 +51,10 @@ namespace RecipeBook
         {
             _vm.Change(RecipesLV);           
         }
+
+        private void AddRecipe(object sender, RoutedEventArgs e)
+        {
+            _vm.Add();
+        }
     }
 }

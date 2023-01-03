@@ -32,8 +32,7 @@ namespace RecipeBook
 
         private void UpdateRecipe(object sender, RoutedEventArgs e)
         {
-            _vm.ChangeRecipe();
-            Close();
+            if (_vm.ChangeRecipe()) Close();
         }
         private void ChangeFoodGroup(object sender, SelectionChangedEventArgs e) => _vm.ChooseFoodGroup(sender as ComboBox);
 

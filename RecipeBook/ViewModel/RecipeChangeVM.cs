@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RecipeBook.ViewModel
@@ -13,6 +15,11 @@ namespace RecipeBook.ViewModel
     internal class RecipeChangeVM : NotifyClass
     {
         private int _index;
+        private bool IsEmptyProps()
+        {
+            PropertyInfo[] properties = СhangeRec.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            return properties.Any(p => p.GetValue(СhangeRec, null) == null || (p.GetValue(СhangeRec, null)).ToString() == String.Empty);
+        }
         public Recipe Rec { get; set; }
         public Recipe СhangeRec { get; set; }
         public struct FoodGroupStruct
@@ -35,12 +42,23 @@ namespace RecipeBook.ViewModel
             GetFoodGroups();
         }
 
-        public void ChangeRecipe()
+        public bool ChangeRecipe()
         {
-            Rec.Name = СhangeRec.Name;
-            Rec.Description = СhangeRec.Description;
-            Rec.CookTime = СhangeRec.CookTime;
-            Rec.Group = СhangeRec.Group;
+            if (IsEmptyProps())
+            {
+                MessageBox.Show("Заполните все поля");
+                return false;
+            }
+            else
+            {
+                Rec.Name = СhangeRec.Name;
+                Rec.Description = СhangeRec.Description;
+                Rec.CookTime = СhangeRec.CookTime;
+                Rec.Group = СhangeRec.Group;
+                Rec.Ingridients = СhangeRec.Ingridients;
+                return true;
+            }
+            
         }
         private void GetFoodGroups()
         {
@@ -70,7 +88,7 @@ namespace RecipeBook.ViewModel
         public void ChooseFoodGroup(ComboBox changer) => СhangeRec.Group = ((FoodGroupStruct)changer.SelectedItem).NameGroup;
         public void ChangeIngridients()
         {
-            IngridientsCRUDWindow ChangeIngridients = new IngridientsCRUDWindow(Rec);
+            IngridientsCRUDWindow ChangeIngridients = new IngridientsCRUDWindow(СhangeRec);
             ChangeIngridients.ShowDialog();
         }
     }

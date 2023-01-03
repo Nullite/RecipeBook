@@ -17,7 +17,9 @@ namespace RecipeBook.ViewModel
         public IngidientsCRUD_VM(Recipe rec)
         {
             Rec = rec;
-            Ingridients = new List<Ingridient>(rec.Ingridients);
+            Ingridients = rec.Ingridients != null 
+                ? new List<Ingridient>(rec.Ingridients) 
+                : new List<Ingridient>();
             Photo = rec.Photo;
         }
         public List<Ingridient> Ingridients
@@ -34,7 +36,7 @@ namespace RecipeBook.ViewModel
             get
             {
                 string ingridients = "";
-                Ingridients.ForEach(i =>
+                Ingridients?.ForEach(i =>
                 {
                     ingridients += $"{i.Name} {i.Quantity} {i.Units}\n";
                 });
@@ -45,6 +47,6 @@ namespace RecipeBook.ViewModel
         {
             OnPropertyChanged(nameof(IngridientsString));
         }
-        public void SaveIngridients() => Rec.Ingridients = Ingridients;
+        public void SaveIngridients() => Rec.Ingridients = Ingridients.Count > 0 ? Ingridients : null;
     }
 }
