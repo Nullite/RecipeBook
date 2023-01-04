@@ -129,7 +129,8 @@ namespace RecipeBook.Model
                 Sorter.Sort(ref _recipes);
                 return _recipes;
             }
-            private set => _recipes = value; }
+            private set => _recipes = value; 
+        }
         public static RecipesDB RecipesContext()
         {
             if (_instance == null) _instance = new RecipesDB();
