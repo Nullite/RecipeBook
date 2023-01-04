@@ -68,7 +68,9 @@
     <Compile Include="RecipeWindow.xaml.cs">
       <DependentUpon>RecipeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings\Cloner.cs" />
     <Compile Include="Settings\NotifyClass.cs" />
+    <Compile Include="Settings\Sorter.cs" />
     <Compile Include="ViewModel\AddRecipeVM.cs" />
     <Compile Include="ViewModel\IngidientsCRUD_VM.cs" />
     <Compile Include="ViewModel\RecipeChangeVM.cs" />

@@ -17,9 +17,8 @@ namespace RecipeBook.ViewModel
         public IngidientsCRUD_VM(Recipe rec)
         {
             Rec = rec;
-            Ingridients = rec.Ingridients != null 
-                ? new List<Ingridient>(rec.Ingridients) 
-                : new List<Ingridient>();
+            Ingridients = new List<Ingridient>();
+            Cloner<Ingridient>.CloneList(rec.Ingridients, Ingridients);
             Photo = rec.Photo;
         }
         public List<Ingridient> Ingridients

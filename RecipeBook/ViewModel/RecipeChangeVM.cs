@@ -2,11 +2,8 @@
 using RecipeBook.Settings;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,7 +15,9 @@ namespace RecipeBook.ViewModel
         private bool IsEmptyProps()
         {
             PropertyInfo[] properties = СhangeRec.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            return properties.Any(p => p.GetValue(СhangeRec, null) == null || (p.GetValue(СhangeRec, null)).ToString() == String.Empty);
+            return properties.Any(p => p.GetValue(СhangeRec, null) == null
+            || (p.GetValue(СhangeRec, null)).ToString() == String.Empty
+            || (p.GetValue(СhangeRec) is List<Ingridient>) && (p.GetValue(СhangeRec) as List<Ingridient>).Count == 0);
         }
         public Recipe Rec { get; set; }
         public Recipe СhangeRec { get; set; }
@@ -31,13 +30,7 @@ namespace RecipeBook.ViewModel
         public RecipeChangeVM(Recipe Rec)
         {
             this.Rec = Rec;
-            СhangeRec = new Recipe();
-            СhangeRec.Ingridients = new List<Ingridient>(Rec.Ingridients);
-            СhangeRec.Name = Rec.Name;
-            СhangeRec.Description = Rec.Description;
-            СhangeRec.Photo = Rec.Photo;
-            СhangeRec.CookTime = Rec.CookTime;
-            СhangeRec.Group = Rec.Group;
+            СhangeRec = (Recipe)Rec.Clone();
             GroupToChoose = new List<FoodGroupStruct>();
             GetFoodGroups();
         }
@@ -51,11 +44,7 @@ namespace RecipeBook.ViewModel
             }
             else
             {
-                Rec.Name = СhangeRec.Name;
-                Rec.Description = СhangeRec.Description;
-                Rec.CookTime = СhangeRec.CookTime;
-                Rec.Group = СhangeRec.Group;
-                Rec.Ingridients = СhangeRec.Ingridients;
+                if (MessageBox.Show("Сохранить изменения?", "Внимание!", MessageBoxButton.YesNo) == MessageBoxResult.Yes) RecipesDB.RecipesContext().ChangeRecipe(Rec, СhangeRec);
                 return true;
             }
             

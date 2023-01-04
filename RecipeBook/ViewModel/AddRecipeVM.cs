@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -25,13 +23,16 @@ namespace RecipeBook.ViewModel
         {
             Recipes = RecipesDB.RecipesContext().Recipes;
             Recipe = new Recipe { Photo = "\\Resourses\\Images\\default.jpg" };
+            Recipe.Ingridients = new List<Ingridient>();
             GroupToChoose = new List<FoodGroupStruct>();
             GetFoodGroups();
         }
         private bool IsEmptyProps()
         {
             PropertyInfo[] properties = Recipe.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            return properties.Any(p => p.GetValue(Recipe, null) == null || (p.GetValue(Recipe, null)).ToString() == String.Empty);
+            return properties.Any(p => p.GetValue(Recipe, null) == null 
+            || (p.GetValue(Recipe, null)).ToString() == String.Empty 
+            || (p.GetValue(Recipe) is List<Ingridient>) && (p.GetValue(Recipe) as List<Ingridient>).Count == 0);
         }
         public ObservableCollection<Recipe> Recipes { get; set; }
         public Recipe Recipe { get; set; }
@@ -51,7 +52,7 @@ namespace RecipeBook.ViewModel
             }
             else
             {
-                Recipes.Add(Recipe); 
+                if (MessageBox.Show("Сохранить изменения?", "Внимание!", MessageBoxButton.YesNo) == MessageBoxResult.Yes) Recipes.Add(Recipe);
                 return true;
             }
         }

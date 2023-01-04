@@ -1,14 +1,6 @@
-﻿using RecipeBook.Properties;
-using System;
+﻿using RecipeBook.Settings;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace RecipeBook.Model
 {
@@ -130,11 +122,23 @@ namespace RecipeBook.Model
                 },
             };
         }
-        public ObservableCollection<Recipe> Recipes { get => _recipes; private set => _recipes = value; }
+        public ObservableCollection<Recipe> Recipes 
+        { 
+            get
+            {
+                Sorter.Sort(ref _recipes);
+                return _recipes;
+            }
+            private set => _recipes = value; }
         public static RecipesDB RecipesContext()
         {
             if (_instance == null) _instance = new RecipesDB();
             return _instance;
+        }
+        public void ChangeRecipe(Recipe oldRec, Recipe newRec)
+        {
+            Recipes.Add(newRec);
+            Recipes.Remove(oldRec);           
         }
     }
 }
