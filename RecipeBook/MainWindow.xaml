@@ -70,6 +70,14 @@
                                     Click="DeleteRecipe"/>
                             </ContextMenu>
                         </Viewbox.ContextMenu>
+                        <Viewbox.ToolTip>
+                            <ToolTip Width="200" Height="150">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Path=Name}" />
+                                    <Image Source="{Binding Path=Photo}" />
+                                </StackPanel>
+                            </ToolTip>
+                        </Viewbox.ToolTip>
                         <Border
                             Width="250"
                             Height="250"

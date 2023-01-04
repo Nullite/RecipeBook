@@ -47,6 +47,9 @@ namespace RecipeBook.ViewModel
         {
             OnPropertyChanged(nameof(IngridientsString));
         }
-        public void SaveIngridients() => Rec.Ingridients = Ingridients.Count > 0 ? Ingridients : null;
+        public void SaveIngridients()
+        {
+            Rec.Ingridients = Ingridients.Count > 0 ? Ingridients : null;
+        }
     }
 }
