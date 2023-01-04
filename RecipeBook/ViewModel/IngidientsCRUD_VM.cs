@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RecipeBook.ViewModel
 {
@@ -20,6 +21,14 @@ namespace RecipeBook.ViewModel
             Ingridients = new List<Ingridient>();
             Cloner<Ingridient>.CloneList(rec.Ingridients, Ingridients);
             Photo = rec.Photo;
+        }
+        private bool isIngridientsChanged()
+        {
+            for (int i = 0; i < Ingridients.Count; ++i) 
+            {
+                if (!(Ingridients[i].Equals(Rec.Ingridients[i]))) return true;
+            }
+            return false;
         }
         public List<Ingridient> Ingridients
         {
@@ -48,7 +57,13 @@ namespace RecipeBook.ViewModel
         }
         public void SaveIngridients()
         {
-            Rec.Ingridients = Ingridients.Count > 0 ? Ingridients : null;
+            if (isIngridientsChanged())
+            {
+                if (MessageBox.Show("Сохранить изменения?", "Внимание!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    Rec.Ingridients = Ingridients.Count > 0 ? Ingridients : null;
+                }
+            }            
         }
     }
 }

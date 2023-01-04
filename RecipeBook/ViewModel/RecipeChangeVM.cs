@@ -44,7 +44,13 @@ namespace RecipeBook.ViewModel
             }
             else
             {
-                if (MessageBox.Show("Сохранить изменения?", "Внимание!", MessageBoxButton.YesNo) == MessageBoxResult.Yes) RecipesDB.RecipesContext().ChangeRecipe(Rec, СhangeRec);
+                if (!(Rec.Equals(СhangeRec))) 
+                {
+                    if (MessageBox.Show("Сохранить изменения?", "Внимание!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        RecipesDB.RecipesContext().ChangeRecipe(Rec, СhangeRec);
+                    }
+                }               
                 return true;
             }
             
